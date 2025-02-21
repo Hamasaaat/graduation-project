@@ -2,10 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
-
+import { ProductProvider } from "./context/ProductContext"; 
+import "./App.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <App />
+    <ProductProvider>
+      {" "}
+      {/* Wrap App with ProductProvider */}
+      <App />
+    </ProductProvider>
   </BrowserRouter>
 );

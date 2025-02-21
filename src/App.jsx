@@ -7,23 +7,26 @@ import Orders from "./pages/Orders";
 import Products from "./pages/Products";
 import Users from "./pages/Users";
 import Sidebar from "./components/Sidebar";
-import "./index.css";
+import { ProductProvider } from "./context/ProductContext"; 
+import "./App.css";
 
 const App = () => {
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="flex-1 p-4">
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/users" element={<Users />} />
-        </Routes>
+    <ProductProvider> {/* Wrap the entire app inside ProductProvider */}
+      <div className="flex ">
+        <Sidebar />
+        <div className="flex-1 p-4">
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/users" element={<Users />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </ProductProvider>
   );
 };
 
