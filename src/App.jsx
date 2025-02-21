@@ -7,13 +7,13 @@ import Orders from "./pages/Orders";
 import Products from "./pages/Products";
 import Users from "./pages/Users";
 import Sidebar from "./components/Sidebar";
-import { ProductProvider } from "./context/ProductContext"; // Import ProductProvider
+import { ProductProvider } from "./context/ProductContext"; 
 import "./App.css";
 
 const App = () => {
   return (
     <ProductProvider> {/* Wrap the entire app inside ProductProvider */}
-      <div className="flex">
+      <div className="flex ">
         <Sidebar />
         <div className="flex-1 p-4">
           <Routes>

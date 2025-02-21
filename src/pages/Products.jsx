@@ -31,7 +31,7 @@ const Products = () => {
         <h1 className="text-2xl font-bold mb-4">Products</h1>
         <button
           onClick={handleAddProduct}
-          className="bg-[#747474] text-white px-4 py-2 rounded mb-4 "
+          className="bg-[#747474] text-white px-4 py-2 rounded mb-4 hover:bg-blue-600 transition-all duration-150 "
         >
           Add Product
         </button>
@@ -41,7 +41,7 @@ const Products = () => {
 
       {/* Modal for ProductForm */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-lg ">
           <div className="bg-white p-6 rounded shadow-md w-96">
             <ProductForm
               isOpen={isModalOpen}

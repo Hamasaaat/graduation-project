@@ -24,7 +24,7 @@ const ProductList = ({ onEdit }) => {
           </div>
           <div className="flex justify-between mt-2">
             <button
-              className="bg-[#747474] text-white px-3 py-1 rounded w-1/2 mr-1 transition-all duration-300 hover:bg-[#5c5c5c]"
+              className="bg-[#747474] text-white px-3 py-1 rounded w-1/2 mr-1 transition-all duration-300 hover:bg-blue-600"
               onClick={() => onEdit(product)}
             >
               Edit

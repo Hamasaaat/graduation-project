@@ -50,7 +50,7 @@ const ProductForm = ({ isOpen, onClose, initialProduct }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-lg">
       <div className="bg-white p-6 rounded-lg w-full max-w-md">
         <h2 className="text-xl font-bold mb-4">
           {initialProduct ? "Edit Product" : "Add Product"}
