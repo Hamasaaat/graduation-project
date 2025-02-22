@@ -40,7 +40,7 @@ const App = () => {
         <Sidebar />
         <div className="flex-1 p-4">
           <Routes>
-            <Route path="/" element={<LoginPage/>} />
+            <Route path="/" element={<RegisterPage/>} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/orders" element={<Orders />} />

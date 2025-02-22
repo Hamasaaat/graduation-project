@@ -27,7 +27,6 @@ const UserTable = () => {
     localStorage.setItem("users", JSON.stringify(updatedUsers));
   };
 
-  // TODO: RANIA: change to a pop up
   const handleViewUser = (user) => {
     setSelectedUser(user);
     setIsModalOpen(true);
@@ -91,16 +90,18 @@ const UserTable = () => {
                 <button onClick={() => handleViewUser(user)} className="mr-4">
                   View
                 </button>
-                {user.username !== "admin" && (
-                  <button onClick={() => handleToggleStatus(index)}>
-                    {user.isBlocked ? "Unblock" : "Block"}
-                  </button>
-                )}
-                {user.username === "admin" && (
-                  <button disabled className="text-gray-400 cursor-not-allowed">
-                    Block
-                  </button>
-                )}
+                <button
+                  id="toggleButton"
+                  onClick={() => handleToggleStatus(index)}
+                  disabled={user.username === "admin"}
+                  className={
+                    user.username === "admin"
+                      ? "text-gray-400 cursor-not-allowed"
+                      : ""
+                  }
+                >
+                  {user.isBlocked ? "Unblock" : "Block"}
+                </button>
               </td>
             </tr>
           ))}
@@ -108,8 +109,12 @@ const UserTable = () => {
       </table>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div
+            className="absolute inset-0 bg-transparent"
+            onClick={closeModal}
+          ></div>
+          <div className="bg-white p-6 rounded-lg shadow-2xl w-96 relative transition-all duration-300 ease-in-out border border-gray-400">
             <h3 className="text-2xl font-semibold mb-4">User Details</h3>
             <p className="mb-2">
               <strong>ID:</strong> {selectedUser.id}
