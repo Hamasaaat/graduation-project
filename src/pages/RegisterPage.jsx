@@ -27,17 +27,16 @@ const RegisterPage = () => {
       return;
     }
   
-     // Generate a unique UUID for the user
-     const userId = uuidv4();
   
     // Create user object 
     const newUser = {
-      id: userId,
+      id: uuidv4(),
       username,
       email,
       password, 
       isBlocked: false,
       role: "user",
+      createdDate: new Date().toLocaleString()
     };
   
     // Store user in localStorage
