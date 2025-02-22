@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid"; // Import uuid
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -10,38 +11,50 @@ const RegisterPage = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-
-    // Validation checks
+  
     if (!username || !email || !password) {
       setError("All fields are required!");
       return;
     }
-
+  
     if (username.length < 3 || username.length > 15) {
       setError("Username must be between 3 and 15 characters.");
       return;
     }
-
+  
     if (password.length < 10) {
       setError("Password must be at least 10 characters.");
       return;
     }
-
+  
+     // Generate a unique UUID for the user
+     const userId = uuidv4();
+  
+    // Create user object 
+    const newUser = {
+      id: userId,
+      username,
+      email,
+      password, 
+      isBlocked: false,
+      role: "user",
+    };
+  
     // Store user in localStorage
-    const newUser = { username, email, password };
     const users = JSON.parse(localStorage.getItem("users")) || [];
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
-
+  
     // Clear form and error
     setUsername("");
     setEmail("");
     setPassword("");
     setError("");
-
+  
     alert("Registration successful!");
-    navigate("/login");
+    navigate("/login"); // Redirect to login page
   };
+  
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
