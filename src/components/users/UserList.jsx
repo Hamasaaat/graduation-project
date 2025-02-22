@@ -16,28 +16,7 @@ const UserTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const adminUser = {
-      id: uuidv4(),
-      username: "admin",
-      email: "admin@admin.com",
-      password: "admin",
-      role: "admin",
-      isBlocked: false,
-      createdDate: "2/20/2025, 8:42:45 PM",
-    };
-
-    console.log(`RANIA:  ${adminUser.id}`);
-
     const savedUsers = JSON.parse(localStorage.getItem("users")) || [];
-    const adminExists = savedUsers.some(
-      (user) => user.username === adminUser.username
-    );
-
-    if (!adminExists) {
-      savedUsers.push(adminUser);
-      localStorage.setItem("users", JSON.stringify(savedUsers));
-    }
-
     setUsers(savedUsers);
   }, []);
 
