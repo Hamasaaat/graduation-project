@@ -36,8 +36,9 @@ const RegisterPage = () => {
       username,
       email,
       password, 
-      isBlocked: false,
-      role: "user",
+      role: "user", // Default role
+      isBlocked: false, // Default not blocked
+      status: "active" // Default status
     };
   
     // Store user in localStorage
