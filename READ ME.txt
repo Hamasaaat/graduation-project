@@ -1,12 +1,16 @@
-first, if you don't have vite: 
+1. first, if you don't have vite: 
  npm install vite --save-dev
 
 ==========================
-then run these in the terminal:
+2. then to install the dependencies, run these in the terminal:
 
 npm install
-npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npm install tailwindcss @tailwindcss/vite
 npm install react-router-dom
 npm install formik yup
+npm install uuidv4
+
+============================
+3. to launch the app, run the following:
 npm run dev
 
