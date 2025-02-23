@@ -14,7 +14,7 @@ const RegistrationForm = () => {
     username: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    confirmPassword: "", 
   };
 
   const validationSchema = Yup.object({
@@ -22,7 +22,7 @@ const RegistrationForm = () => {
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match") \
+      .oneOf([Yup.ref("password"), null], "Passwords must match") 
       .required("Required"),
   });
 
