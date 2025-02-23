@@ -1,28 +1,31 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FiHome, FiShoppingCart, FiBox, FiUsers, FiUser } from "react-icons/fi";
 
 const Sidebar = () => {
   const location = useLocation(); // Get the current route
 
+  const menuItems = [
+    { name: "Dashboard", path: "/dashboard", icon: <FiHome size={20} /> },
+    { name: "Orders", path: "/orders", icon: <FiShoppingCart size={20} /> },
+    { name: "Products", path: "/products", icon: <FiBox size={20} /> },
+    { name: "Users", path: "/users", icon: <FiUsers size={20} /> },
+    { name: "Profile", path: "/profile", icon: <FiUser size={20} /> },
+  ];
+
   return (
-    <div className="w-64 h-screen bg-[#747474] text-white p-6 sticky top-0 shadow-lg">
-      <nav>
+    <div className="w-64 h-screen bg-[#1E1E2F] text-white p-6 sticky top-0 shadow-lg flex flex-col">
+      <nav className="flex-1">
         <ul className="space-y-4">
-          {[
-            { name: "Dashboard", path: "/dashboard" },
-            { name: "Orders", path: "/orders" },
-            { name: "Products", path: "/products" },
-            { name: "Users", path: "/users" },
-          ].map((item) => (
+          {menuItems.map((item) => (
             <li key={item.path}>
               <Link
                 to={item.path}
-                className={`block px-4 py-2 rounded-lg text-center transition-all duration-300 ${
-                  location.pathname === item.path
-                    ? "bg-[#4a4a4a]" // Active link color
-                    : "bg-[#5c5c5c] hover:bg-[#4a4a4a]"
-                }`}
+                className={`flex items-center px-4 py-3 rounded-lg transition-all duration-300 text-lg font-medium gap-3
+                  ${location.pathname === item.path ? "bg-[#34344A]" : "hover:bg-[#2A2A3A]"}
+                `}
               >
+                {item.icon}
                 {item.name}
               </Link>
             </li>

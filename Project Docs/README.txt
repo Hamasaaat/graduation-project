@@ -10,6 +10,7 @@ npm install
 npm install tailwindcss @tailwindcss/vite
 npm install react-router-dom
 npm install formik yup
+npm install react-icons
 npm install uuidv4
 
 ============================
