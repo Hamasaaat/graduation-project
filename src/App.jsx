@@ -67,7 +67,6 @@ const App = () => {
                 <>
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
-                  <Route path="*" element={<Navigate to="/login" />} />
                 </>
               )}
 
@@ -75,17 +74,20 @@ const App = () => {
               {user && (
                 <>
                   <Route path="/" element={<Dashboard />} />
-                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/profile" element={<Profile />} />{" "}
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                  <Route path="*" element={<Navigate to="/login" />} />
+                  <Route path="/orders" element={<Orders />} />
+                  <Route path="/products" element={<Products />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/contact" element={<Contact />} />
                   {/* ✅ Only Admins See These */}
                   {user.role === "admin" && (
                     <>
-                      <Route path="/orders" element={<Orders />} />
-                      <Route path="/products" element={<Products />} />
                       <Route path="/users" element={<Users />} />
-                      <Route path="/home" element={<Home />} />
-                      <Route path="/about" element={<About />} />
-                      <Route path="/services" element={<Services />} />
-                      <Route path="/contact" element={<Contact />} />
                     </>
                   )}
                   <Route path="*" element={<Navigate to="/" />} />

@@ -19,13 +19,13 @@ const Sidebar = ({ isOpen }) => {
   const menuItems = [
     { name: "Dashboard", path: "/", icon: <FiHome size={20} /> },
     { name: "Profile", path: "/profile", icon: <FiUser size={20} /> },
+    { name: "Orders", path: "/orders", icon: <FiShoppingCart size={20} /> },
+    { name: "Products", path: "/products", icon: <FiBox size={20} /> },
   ];
 
   // ✅ Add admin-only sections
   if (user.role === "admin") {
     menuItems.push(
-      { name: "Orders", path: "/orders", icon: <FiShoppingCart size={20} /> },
-      { name: "Products", path: "/products", icon: <FiBox size={20} /> },
       { name: "Users", path: "/users", icon: <FiUsers size={20} /> }
     );
   }
