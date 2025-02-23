@@ -46,7 +46,7 @@ const App = () => {
     <ProductProvider>
       <div className="flex h-screen">
         <Navbar toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <div className="flex">
+        <div className="flex justify-between w-full">
           <Sidebar isOpen={isSidebarOpen} />
           <div className="flex-1 p-4 mt-10 overflow-auto">
             <Routes>
