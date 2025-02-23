@@ -1,7 +1,9 @@
-import React from "react";
+import UserTable from "../components/users/UserList.jsx";
 
 const Users = () => {
-  return <div>Users Page</div>;
+  return <div>
+    <UserTable/>
+  </div>;
 };
 
 export default Users;
