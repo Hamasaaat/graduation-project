@@ -21,7 +21,7 @@ const App = () => {
       id: uuidv4(),
       username: "admin",
       email: "admin@admin.com",
-      password: "admin",
+      password: "admin@123",
       role: "admin",
       isBlocked: false,
       createdDate: "2/20/2025, 8:42:45 PM",

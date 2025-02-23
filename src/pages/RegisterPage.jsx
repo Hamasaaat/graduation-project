@@ -51,7 +51,7 @@ const RegisterPage = () => {
     setError("");
   
     alert("Registration successful!");
-    navigate("/login"); // Redirect to login page
+    navigate("/"); // Redirect to login page
   };
   
 
