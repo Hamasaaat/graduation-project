@@ -4,7 +4,7 @@ import { useLocation, Navigate } from "react-router-dom";
 
 const Profile = () => {
 
-  if (localStorage.getItem('users') == null) {
+  if (localStorage.getItem('loggedInUser') == null) {
     return <Navigate to="/login" />
   }
 

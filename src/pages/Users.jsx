@@ -3,7 +3,7 @@ import UserTable from "../components/users/UserList.jsx";
 
 const Users = () => {
 
-  if (localStorage.getItem('users') == null) {
+  if (localStorage.getItem('loggedInUser') == null) {
     return <Navigate to="/login" />
   }
 
