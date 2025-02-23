@@ -12,11 +12,11 @@ const Navbar = ({ toggleSidebar }) => {
         <FiMenu size={28} />
       </button>
 
-      <h1 className="text-lg font-bold">Business Management</h1>
+      <Link to="/"><h1 className="text-lg font-bold">Business Management</h1></Link>
 
       <ul className="hidden lg:flex space-x-6">
         <li>
-          <Link to="/" className="hover:text-gray-400 transition">
+          <Link to="/home" className="hover:text-gray-400 transition">
             Home
           </Link>
         </li>

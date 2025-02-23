@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
-import { useLocation } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 
 const Profile = () => {
+
+  if (localStorage.getItem('users') == null) {
+    return <Navigate to="/login" />
+  }
+
   const { user, setUser, logout } = useUser();
   const [userData, setUserData] = useState(null);
   const location = useLocation();

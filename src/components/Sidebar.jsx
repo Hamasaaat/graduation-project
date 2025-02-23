@@ -15,7 +15,7 @@ const Sidebar = ({ isOpen }) => {
   const { user, logout } = useUser();
 
   const menuItems = [
-    { name: "Dashboard", path: "/dashboard", icon: <FiHome size={20} /> },
+    { name: "Dashboard", path: "/", icon: <FiHome size={20} /> },
     { name: "Orders", path: "/orders", icon: <FiShoppingCart size={20} /> },
     { name: "Products", path: "/products", icon: <FiBox size={20} /> },
     { name: "Users", path: "/users", icon: <FiUsers size={20} /> },
@@ -24,9 +24,8 @@ const Sidebar = ({ isOpen }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 h-full bg-[#1E1E2F] text-white w-64 p-6 shadow-lg transition-transform duration-300 ${
-        isOpen ? "translate-x-0" : "-translate-x-64"
-      } lg:relative lg:translate-x-0 lg:flex flex-col z-40`}
+      className={`fixed top-0 left-0 h-full bg-[#1E1E2F] text-white w-64 p-6 shadow-lg transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-64"
+        } lg:relative lg:translate-x-0 lg:flex flex-col z-40`}
     >
       <nav className="flex-1 pt-16">
         {" "}
@@ -36,11 +35,10 @@ const Sidebar = ({ isOpen }) => {
             <li key={item.path}>
               <Link
                 to={item.path}
-                className={`flex items-center px-4 py-3 rounded-lg transition-all duration-300 text-lg font-medium gap-3 ${
-                  location.pathname === item.path
-                    ? "bg-[#34344A]"
-                    : "hover:bg-[#2A2A3A]"
-                }`}
+                className={`flex items-center px-4 py-3 rounded-lg transition-all duration-300 text-lg font-medium gap-3 ${location.pathname === item.path
+                  ? "bg-[#34344A]"
+                  : "hover:bg-[#2A2A3A]"
+                  }`}
               >
                 {item.icon}
                 {item.name}

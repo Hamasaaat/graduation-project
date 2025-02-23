@@ -12,6 +12,10 @@ import Navbar from "./components/Navbar";
 import { ProductProvider } from "./context/ProductContext";
 import "./App.css";
 import { v4 as uuidv4 } from "uuid";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Services from "./pages/Services";
+import Contact from "./pages/Contact";
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -46,13 +50,17 @@ const App = () => {
           <Sidebar isOpen={isSidebarOpen} />
           <div className="flex-1 p-4 mt-10 overflow-auto">
             <Routes>
-              <Route path="/" element={<LoginPage />} />
+              <Route path="/" element={<Dashboard />} />
               <Route path="/register" element={<RegisterPage />} />
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/login" element={<LoginPage />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/products" element={<Products />} />
               <Route path="/users" element={<Users />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/contact" element={<Contact />} />
             </Routes>
           </div>
         </div>
