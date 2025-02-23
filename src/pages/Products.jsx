@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 const Products = () => {
 
-  if (localStorage.getItem('users') == null) {
+  if (localStorage.getItem('loggedInUser') == null) {
     return <Navigate to="/login" />
   }
 

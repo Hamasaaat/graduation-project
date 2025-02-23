@@ -2,8 +2,14 @@ import { useState } from "react";
 import OrderList from "../components/orders/OrderList";
 import OrderForm from "../components/orders/OrderForm";
 import { OrderProvider } from "../context/OrderContext";
+import { Navigate } from "react-router-dom";
 
 const Orders = () => {
+
+  if (localStorage.getItem('loggedInUser') == null) {
+    return <Navigate to="/login" />
+  }
+
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingOrder, setEditingOrder] = useState(null);
 
@@ -49,6 +55,7 @@ const Orders = () => {
       </div>
     </OrderProvider>
   );
+}
 
 
 export default Orders;
