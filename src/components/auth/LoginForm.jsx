@@ -38,7 +38,7 @@ const LoginForm = () => {
     localStorage.setItem("loggedInUser", JSON.stringify(foundUser)); // 🔥 FIXED HERE
 
     alert("Login successful!");
-    navigate("/dashboard");
+    navigate("/");
   };
 
   return (

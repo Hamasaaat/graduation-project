@@ -17,7 +17,7 @@ const LoginPage = () => {
       console.log("✅ User Found:", foundUser);
       localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
       setUser(foundUser);
-      navigate("/profile");
+      navigate("/");
     } else {
       alert("Invalid credentials");
     }
