@@ -24,8 +24,9 @@ const Sidebar = ({ isOpen }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 h-full bg-[#1E1E2F] text-white w-64 p-6 shadow-lg transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-64"
-        } lg:relative lg:translate-x-0 lg:flex flex-col z-40`}
+      className={`fixed top-0 left-0 h-full bg-[#1E1E2F] text-white w-64 p-6 shadow-lg transition-transform duration-300 ${
+        isOpen ? "translate-x-0" : "-translate-x-64"
+      } lg:relative lg:translate-x-0 lg:flex flex-col z-40`}
     >
       <nav className="flex-1 pt-16">
         {" "}
@@ -35,10 +36,11 @@ const Sidebar = ({ isOpen }) => {
             <li key={item.path}>
               <Link
                 to={item.path}
-                className={`flex items-center px-4 py-3 rounded-lg transition-all duration-300 text-lg font-medium gap-3 ${location.pathname === item.path
-                  ? "bg-[#34344A]"
-                  : "hover:bg-[#2A2A3A]"
-                  }`}
+                className={`flex items-center px-4 py-3 rounded-lg transition-all duration-300 text-lg font-medium gap-3 ${
+                  location.pathname === item.path
+                    ? "bg-[#34344A]"
+                    : "hover:bg-[#2A2A3A]"
+                }`}
               >
                 {item.icon}
                 {item.name}
@@ -50,7 +52,7 @@ const Sidebar = ({ isOpen }) => {
 
       {/* User Info Section */}
       {user && (
-        <div className="mt-auto flex flex-col gap-3 p-4 bg-[#34344A] rounded-lg text-center">
+        <div className="mt-auto flex flex-col gap-3 p-4 bg-[#34344A] rounded-lg text-center -translate-y-10">
           <img
             src="https://symbl-world.akamaized.net/i/webp/a4/aac58eba06b016ce93d9ecf7184a3f.webp"
             alt="Avatar"

@@ -44,11 +44,11 @@ const App = () => {
 
   return (
     <ProductProvider>
-      <div className="flex h-screen">
+      <div className="flex flex-col h-screen overflow-hidden">
         <Navbar toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <div className="flex">
+        <div className="flex flex-1 lg:flex-row">
           <Sidebar isOpen={isSidebarOpen} />
-          <div className="flex-1 p-4 mt-10 overflow-auto">
+          <div className="flex-1 min-h-screen p-4 mt-10 overflow-auto">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/register" element={<RegisterPage />} />
