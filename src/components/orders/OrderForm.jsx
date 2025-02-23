@@ -32,6 +32,7 @@ const OrderForm = ({ onClose, initialOrder }) => {
     selectedProduct: "",
     productQuantity: 1,
     products: [],
+    status: "Pending", // Default status for new orders
   };
 
   // Validation schema using Yup
@@ -45,21 +46,28 @@ const OrderForm = ({ onClose, initialOrder }) => {
     productQuantity: Yup.number()
       .min(1, "Quantity must be at least 1")
       .required("Quantity is required"),
+    status: Yup.string().required("Status is required"), // Only required for editing
   });
 
   // Handle form submission
   const handleSubmit = (values, { resetForm }) => {
+    console.log("Form Values:", values); // Debug: Log form values
     const newOrder = {
-      id: initialOrder ? initialOrder.id : Date.now(),
+      id: initialOrder ? initialOrder.id : Date.now(), // Use existing ID for editing
       customerName: values.customerName,
       customerEmail: values.customerEmail,
       customerAddress: values.customerAddress,
       products: values.products,
+      status: initialOrder ? values.status : "Pending", // Default to "Pending" for new orders
     };
 
+    console.log("New Order:", newOrder); // Debug: Log the new order
+
     if (initialOrder) {
+      console.log("Editing Order:", newOrder); // Debug: Log editing order
       editOrder(newOrder);
     } else {
+      console.log("Adding Order:", newOrder); // Debug: Log adding order
       addOrder(newOrder);
     }
     resetForm();
@@ -94,6 +102,7 @@ const OrderForm = ({ onClose, initialOrder }) => {
       onSubmit={handleSubmit}
     >
       {({ values, setFieldValue, errors, touched }) => {
+        console.log("Form Errors:", errors); // Debug: Log validation errors
         return (
           <Form className="space-y-4">
             {/* Customer Name */}
@@ -208,6 +217,34 @@ const OrderForm = ({ onClose, initialOrder }) => {
                 className="text-red-500 text-sm mt-1"
               />
             </div>
+
+            {/* Status Selection (Only for Editing) */}
+            {initialOrder && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Status *
+                </label>
+                <Field
+                  as="select"
+                  name="status"
+                  className={`mt-1 block w-full p-2 border ${
+                    errors.status && touched.status
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
+                >
+                  <option value="Pending">Pending</option>
+                  <option value="Processing">Processing</option>
+                  <option value="Shipped">Shipped</option>
+                  <option value="Delivered">Delivered</option>
+                </Field>
+                <ErrorMessage
+                  name="status"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
+            )}
 
             {/* Add Product Button */}
             <button

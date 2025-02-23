@@ -10,10 +10,10 @@ const OrderList = ({ onEdit }) => {
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr className="bg-gray-100">
+            <th className="py-3 px-4 border-b text-left">ID</th>
             <th className="py-3 px-4 border-b text-left">Customer Name</th>
             <th className="py-3 px-4 border-b text-left">Email</th>
-            <th className="py-3 px-4 border-b text-left">Address</th>
-            <th className="py-3 px-4 border-b text-left">Products</th>
+            <th className="py-3 px-4 border-b text-left">Status</th>
             <th className="py-3 px-4 border-b text-left">Actions</th>
           </tr>
         </thead>

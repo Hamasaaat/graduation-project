@@ -13,24 +13,30 @@ const OrderItem = ({ order, onDelete, onEdit }) => {
   };
 
   const handleEdit = () => {
-    onEdit(order); // Call the onEdit function passed from the parent
+    onEdit(order); // Pass the order to the parent component for editing
     setIsViewing(false); // Close the view modal
   };
 
   return (
     <>
       <tr className="hover:bg-gray-50 transition-colors">
+        <td className="py-3 px-4 border-b">{order.id}</td>
         <td className="py-3 px-4 border-b">{order.customerName}</td>
         <td className="py-3 px-4 border-b">{order.customerEmail}</td>
-        <td className="py-3 px-4 border-b">{order.customerAddress}</td>
         <td className="py-3 px-4 border-b">
-          <ul>
-            {order.products.map((product, index) => (
-              <li key={index}>
-                {product.name} (Quantity: {product.quantity})
-              </li>
-            ))}
-          </ul>
+          <span
+            className={`px-2 py-1 rounded-full text-sm ${
+              order.status === "Pending"
+                ? "bg-yellow-100 text-yellow-800"
+                : order.status === "Processing"
+                ? "bg-blue-100 text-blue-800"
+                : order.status === "Shipped"
+                ? "bg-green-100 text-green-800"
+                : "bg-gray-100 text-gray-800"
+            }`}
+          >
+            {order.status}
+          </span>
         </td>
         <td className="py-3 px-4 border-b">
           <button
@@ -53,7 +59,7 @@ const OrderItem = ({ order, onDelete, onEdit }) => {
         <OrderView
           order={order}
           onClose={handleCloseView}
-          onEdit={handleEdit} // Pass handleEdit to OrderView
+          onEdit={handleEdit}
         />
       )}
     </>

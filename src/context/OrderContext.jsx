@@ -10,7 +10,6 @@ export const useOrders = () => useContext(OrderContext);
 export const OrderProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
 
-  // Load orders from local storage on component mount
   useEffect(() => {
     const storedOrders = JSON.parse(localStorage.getItem("orders")) || [];
     if (storedOrders.length === 0) {
@@ -22,6 +21,7 @@ export const OrderProvider = ({ children }) => {
           customerEmail: "john@example.com",
           customerAddress: "123 Main St",
           products: [{ name: "Laptop", quantity: 2 }],
+          status: "Pending", // Add status
         },
         {
           id: 2,
@@ -29,6 +29,7 @@ export const OrderProvider = ({ children }) => {
           customerEmail: "jane@example.com",
           customerAddress: "456 Elm St",
           products: [{ name: "Smartphone", quantity: 1 }],
+          status: "Processing", // Add status
         },
       ];
       localStorage.setItem("orders", JSON.stringify(fakeOrders));
@@ -45,9 +46,9 @@ export const OrderProvider = ({ children }) => {
 
   // Function to add a new order
   const addOrder = (order) => {
-    const newOrder = { ...order, id: Date.now() }; // Add a unique ID
-    const updatedOrders = [...orders, newOrder]; // Add the new order to the list
-    setOrders(updatedOrders); // Update the state
+    const newOrder = { ...order, id: Date.now(), status: "Pending" }; // Default status is "Pending"
+    const updatedOrders = [...orders, newOrder];
+    setOrders(updatedOrders);
   };
 
   // Function to edit an existing order
