@@ -35,6 +35,7 @@ const Navbar = ({ toggleSidebar }) => {
             Contact
           </Link>
         </li>
+        
       </ul>
     </div>
   );
