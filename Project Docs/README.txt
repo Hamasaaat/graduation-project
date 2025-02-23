@@ -11,7 +11,7 @@ npm install tailwindcss @tailwindcss/vite
 npm install react-router-dom
 npm install formik yup
 npm install react-icons
-npm install uuidv4
+npm install uuid
 
 ============================
 5. to launch the app, run the following:
