@@ -7,22 +7,60 @@ import { Navigate } from 'react-router-dom';
 
 const DashboardPage = () => {
 
+
   if (localStorage.getItem('loggedInUser') == null) {
     return <Navigate to="/login" />
   }
 
+
+  const users= JSON.parse(localStorage.getItem("users"));
+  const userCount = users ? users.length : 0;
+
+
+  const orders= JSON.parse(localStorage.getItem("orders"));
+  const OrdersCount = orders ? orders.length : 0;
+
+
+  const Products= JSON.parse(localStorage.getItem("products"));
+  const ProductsCount = Products ? Products.length : 0;
+  // Debugging: Log Orders and Products data to check if they are loaded correctly
+  console.log("Orders:", orders);
+  console.log("Products:", Products);
+
+  // Calculate total sales in money (price * quantity)
+  const totalSales = orders ? orders.reduce((total, order) => {
+    order.products.forEach((orderProduct) => {
+      // Debugging: Log the product and its corresponding order
+      console.log(`Processing order product: ${orderProduct.name}, Quantity: ${orderProduct.quantity}`);
+      const product = Products.find(p => p.title === orderProduct.name); // Find the product by name
+      if (product) {
+        console.log(`Found product: ${product.name}, Price: ${product.price}`);
+        total += product.price * orderProduct.quantity; // Multiply product price by quantity and add to total
+      } else {
+        console.log(`Product not found for ${orderProduct.name}`);
+      }
+    });
+    return total;
+  }, 0) : 0;
+
+  // Debugging: Log total sales to check if it's calculating correctly
+  console.log('Total Sales:', totalSales);
+
+  // Format the total sales as currency
+  const formattedTotalSales = `$${totalSales.toLocaleString()}`;
+
   const [metrics, setMetrics] = useState([
-    { title: "Users", value: 1200 },
-    { title: "Orders", value: 350 },
-    { title: "Products", value: 78 },
-    { title: "Total Sales", value: "$45,000" },
+    { title: "Users", value: userCount},
+    { title: "Orders", value: OrdersCount },
+    { title: "Products", value: ProductsCount },
+    { title: "Total Sales", value: formattedTotalSales  },
   ]);
 
   const [salesData, setSalesData] = useState([
-    { label: "Jan", value: 5000 },
-    { label: "Feb", value: 7000 },
-    { label: "Mar", value: 6500 },
-    { label: "Apr", value: 8000 },
+    { label: "Jan", value: 20 },
+    { label: "Feb", value: 50 },
+    { label: "Mar", value: 60 },
+    { label: "Apr", value: 105.94 },
   ]);
 
   return (
