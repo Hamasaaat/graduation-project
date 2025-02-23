@@ -44,9 +44,9 @@ const App = () => {
 
   return (
     <ProductProvider>
-      <div className="flex flex-col h-screen overflow-hidden">
+      <div className="flex flex-col h-screen">
         <Navbar toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <div className="flex flex-1 lg:flex-row">
+        <div className="flex flex-1 lg:flex-row overflow-hidden">
           <Sidebar isOpen={isSidebarOpen} />
           <div className="flex-1 min-h-screen p-4 mt-10 overflow-auto">
             <Routes>

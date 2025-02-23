@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -38,12 +38,12 @@ const LoginForm = () => {
     localStorage.setItem("loggedInUser", JSON.stringify(foundUser)); // 🔥 FIXED HERE
 
     alert("Login successful!");
-    navigate("/dashboard");
+    navigate("/");
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <div className="p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
         <Formik
           initialValues={{ identifier: "", password: "" }}
@@ -90,7 +90,14 @@ const LoginForm = () => {
               Login
             </button>
           </Form>
+
         </Formik>
+        <span className="text-gray-600">
+          Don’t have an account?{" "}
+          <Link to="/register" className="text-blue-500 hover:underline">
+            Register here
+          </Link>
+        </span>
       </div>
     </div>
   );

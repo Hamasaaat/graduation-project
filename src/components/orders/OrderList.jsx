@@ -5,19 +5,28 @@ const OrderList = ({ onEdit }) => {
   const { orders, deleteOrder } = useOrders();
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Order List</h2>
-      <table className="min-w-full bg-white border border-gray-200">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="py-3 px-4 border-b text-left">ID</th>
-            <th className="py-3 px-4 border-b text-left">Customer Name</th>
-            <th className="py-3 px-4 border-b text-left">Email</th>
-            <th className="py-3 px-4 border-b text-left">Status</th>
-            <th className="py-3 px-4 border-b text-left">Actions</th>
+    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      <table className="min-w-full">
+        <thead className="bg-gray-50">
+          <tr>
+            <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+              ID
+            </th>
+            <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+              Customer Name
+            </th>
+            <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+              Email
+            </th>
+            <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+              Status
+            </th>
+            <th className="py-4 px-6 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+              Actions
+            </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-gray-100">
           {orders.map((order) => (
             <OrderItem
               key={order.id}

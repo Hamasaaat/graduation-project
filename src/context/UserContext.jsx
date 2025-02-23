@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("loggedInUser");
     setUser(null);
-    navigate("/");
+    navigate("/login");
   };
 
   return (

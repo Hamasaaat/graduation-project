@@ -24,13 +24,11 @@ const Sidebar = ({ isOpen }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 h-full bg-[#1E1E2F] text-white w-64 p-6 shadow-lg transition-transform duration-300 ${
-        isOpen ? "translate-x-0" : "-translate-x-64"
-      } lg:relative lg:translate-x-0 lg:flex flex-col z-40`}
+      className={`h-screen flex flex-col bg-[#1E1E2F] text-white w-64 p-6 shadow-lg transition-transform duration-300
+        ${isOpen ? "translate-x-0" : "-translate-x-64"} 
+        lg:relative lg:translate-x-0 lg:sticky top-0 z-40`}
     >
-      <nav className="flex-1 pt-16">
-        {" "}
-        {/* Push content below Navbar */}
+      <nav className="flex-1 pt-16 overflow-auto">
         <ul className="space-y-4">
           {menuItems.map((item) => (
             <li key={item.path}>
@@ -50,9 +48,8 @@ const Sidebar = ({ isOpen }) => {
         </ul>
       </nav>
 
-      {/* User Info Section */}
       {user && (
-        <div className="mt-auto flex flex-col gap-3 p-4 bg-[#34344A] rounded-lg text-center -translate-y-10">
+        <div className="p-4 bg-[#34344A] rounded-lg text-center">
           <img
             src="https://symbl-world.akamaized.net/i/webp/a4/aac58eba06b016ce93d9ecf7184a3f.webp"
             alt="Avatar"
@@ -61,7 +58,7 @@ const Sidebar = ({ isOpen }) => {
           <p className="text-sm font-medium">{user.username}</p>
           <button
             onClick={logout}
-            className="flex items-center justify-center bg-[#2A2A3A] hover:bg-red-700  text-white px-4 py-2 rounded mt-5 transition-all w-full transition duration-300"
+            className="flex items-center justify-center bg-[#2A2A3A] hover:bg-red-700 text-white px-4 py-2 rounded mt-5 transition-all w-full"
           >
             <FiLogOut size={18} />
             Logout
