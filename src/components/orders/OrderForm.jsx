@@ -79,6 +79,14 @@ const OrderForm = ({ onClose, initialOrder }) => {
     }
   };
 
+  // Handle deleting a product from the list
+  const handleDeleteProduct = (index, values, setFieldValue) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      const updatedProducts = values.products.filter((_, i) => i !== index);
+      setFieldValue("products", updatedProducts);
+    }
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -215,8 +223,22 @@ const OrderForm = ({ onClose, initialOrder }) => {
               <h3 className="font-medium text-gray-700">Selected Products:</h3>
               <ul className="list-disc pl-5 mt-2">
                 {values.products.map((product, index) => (
-                  <li key={index} className="text-gray-600">
-                    {product.name} (Quantity: {product.quantity})
+                  <li
+                    key={index}
+                    className="text-gray-600 flex justify-between items-center"
+                  >
+                    <span>
+                      {product.name} (Quantity: {product.quantity})
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleDeleteProduct(index, values, setFieldValue)
+                      }
+                      className="text-red-500 hover:text-red-700 font-bold"
+                    >
+                      ×
+                    </button>
                   </li>
                 ))}
               </ul>
