@@ -5,9 +5,8 @@ import { OrderProvider } from "../context/OrderContext";
 import { Navigate } from "react-router-dom";
 
 const Orders = () => {
-
-  if (localStorage.getItem('loggedInUser') == null) {
-    return <Navigate to="/login" />
+  if (localStorage.getItem("loggedInUser") == null) {
+    return <Navigate to="/login" />;
   }
 
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -25,24 +24,28 @@ const Orders = () => {
 
   return (
     <OrderProvider>
-      <div className="p-6 max-w-6xl mx-auto">
+      <div className="p-6 max-w-7xl mx-auto">
         {/* Header with "Add New Order" Button */}
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Orders Management</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">
+            Orders Management
+          </h1>
           <button
             onClick={() => handleOpenForm()}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors shadow-md"
           >
             Add New Order
           </button>
         </div>
+
         {/* Order List */}
-        <OrderList onEdit={handleOpenForm} /> {/* Pass onEdit here */}
+        <OrderList onEdit={handleOpenForm} />
+
         {/* Order Form Modal */}
         {isFormOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-            <div className="bg-white p-6 rounded-lg max-w-md w-full">
-              <h2 className="text-xl font-bold mb-4">
+          <div className="fixed inset-0 bg-black/30 backdrop-blur-lg flex items-center justify-center p-4">
+            <div className="bg-white p-8 rounded-lg max-w-lg w-full shadow-xl">
+              <h2 className="text-2xl font-bold mb-6 text-gray-900">
                 {editingOrder ? "Edit Order" : "Add New Order"}
               </h2>
               <OrderForm
@@ -55,7 +58,6 @@ const Orders = () => {
       </div>
     </OrderProvider>
   );
-}
-
+};
 
 export default Orders;

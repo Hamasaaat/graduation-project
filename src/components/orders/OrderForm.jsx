@@ -282,17 +282,17 @@ const OrderForm = ({ onClose, initialOrder }) => {
             </div>
 
             {/* Form Actions */}
-            <div className="flex justify-end space-x-2">
+            <div className="flex justify-end space-x-4">
               <button
                 type="button"
                 onClick={onClose}
-                className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+                className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors shadow-sm"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                className="bg-blue-800 text-white px-6 py-2 rounded-lg hover:bg-blue-900 transition-colors shadow-sm"
               >
                 {initialOrder ? "Update Order" : "Add Order"}
               </button>

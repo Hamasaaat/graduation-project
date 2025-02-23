@@ -20,12 +20,16 @@ const OrderItem = ({ order, onDelete, onEdit }) => {
   return (
     <>
       <tr className="hover:bg-gray-50 transition-colors">
-        <td className="py-3 px-4 border-b">{order.id}</td>
-        <td className="py-3 px-4 border-b">{order.customerName}</td>
-        <td className="py-3 px-4 border-b">{order.customerEmail}</td>
-        <td className="py-3 px-4 border-b">
+        <td className="py-4 px-6 text-sm text-gray-900">{order.id}</td>
+        <td className="py-4 px-6 text-sm text-gray-900">
+          {order.customerName}
+        </td>
+        <td className="py-4 px-6 text-sm text-gray-900">
+          {order.customerEmail}
+        </td>
+        <td className="py-4 px-6 text-sm">
           <span
-            className={`px-2 py-1 rounded-full text-sm ${
+            className={`px-3 py-1 rounded-full text-xs font-semibold ${
               order.status === "Pending"
                 ? "bg-yellow-100 text-yellow-800"
                 : order.status === "Processing"
@@ -38,16 +42,16 @@ const OrderItem = ({ order, onDelete, onEdit }) => {
             {order.status}
           </span>
         </td>
-        <td className="py-3 px-4 border-b">
+        <td className="py-4 px-6 text-sm">
           <button
             onClick={handleView}
-            className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+            className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors shadow-sm"
           >
             View
           </button>
           <button
             onClick={() => onDelete(order.id)}
-            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 ml-2"
+            className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 ml-2 transition-colors shadow-sm"
           >
             Delete
           </button>
