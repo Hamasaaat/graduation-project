@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    console.log("🔍 Loaded user from localStorage:", loggedInUser);
     if (loggedInUser) {
       setUser(loggedInUser);
     }
@@ -18,11 +19,11 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("loggedInUser");
     setUser(null);
-    navigate("/"); 
+    navigate("/");
   };
 
   return (
-    <UserContext.Provider value={{ user, logout }}>
+    <UserContext.Provider value={{ user, setUser, logout }}>
       {children}
     </UserContext.Provider>
   );

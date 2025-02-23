@@ -54,15 +54,14 @@ const Sidebar = ({ isOpen }) => {
       {user && (
         <div className="mt-auto flex flex-col gap-3 p-4 bg-[#34344A] rounded-lg text-center">
           <img
-            src="https://i.pravatar.cc/150?img=1"
+            src="https://symbl-world.akamaized.net/i/webp/a4/aac58eba06b016ce93d9ecf7184a3f.webp"
             alt="Avatar"
             className="w-14 h-14 mx-auto rounded-full"
           />
           <p className="text-sm font-medium">{user.username}</p>
-          <p className="text-xs text-gray-400">{user.email}</p>
           <button
             onClick={logout}
-            className="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded mt-3 transition-all"
+            className="flex items-center justify-center bg-[#2A2A3A] hover:bg-red-700  text-white px-4 py-2 rounded mt-5 transition-all w-full transition duration-300"
           >
             <FiLogOut size={18} />
             Logout
