@@ -35,10 +35,11 @@ const LoginForm = () => {
       return;
     }
 
-    localStorage.setItem("loggedInUser", JSON.stringify(foundUser)); // 🔥 FIXED HERE
+    localStorage.setItem("loggedInUser", JSON.stringify(foundUser)); 
 
     alert("Login successful!");
     navigate("/");
+    window.location.reload();
   };
 
   return (

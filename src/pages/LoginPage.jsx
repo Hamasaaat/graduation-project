@@ -16,8 +16,8 @@ const LoginPage = () => {
     if (foundUser) {
       console.log("✅ User Found:", foundUser);
       localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
-      setUser(foundUser);
-      navigate("/");
+      setUser(foundUser); // 🔥 Now, this will instantly update the UI
+      navigate("/"); // Redirect to dashboard/profile based on user role
     } else {
       alert("Invalid credentials");
     }
@@ -27,8 +27,6 @@ const LoginPage = () => {
     <div>
       <LoginForm onLogin={handleLogin} />
     </div>
-
-
   );
 };
 

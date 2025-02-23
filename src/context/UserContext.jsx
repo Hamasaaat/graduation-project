@@ -8,12 +8,10 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  // 🔥 Automatically update user state when localStorage changes
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    console.log("🔍 Loaded user from localStorage:", loggedInUser);
-    if (loggedInUser) {
-      setUser(loggedInUser);
-    }
+    setUser(loggedInUser); // Update user state when a user logs in
   }, []);
 
   const logout = () => {
