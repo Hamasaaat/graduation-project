@@ -2,8 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useProducts } from "../context/ProductContext";
 import ProductList from "../components/Products/ProductList";
 import ProductForm from "../components/Products/ProductForm";
+import { Navigate } from "react-router-dom";
 
 const Products = () => {
+
+  if (localStorage.getItem('users') == null) {
+    return <Navigate to="/login" />
+  }
+
   const { fetchProducts } = useProducts();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);

@@ -1,55 +1,52 @@
-import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom'; 
+import React from "react";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
-
-//////TODO: RANIA deal with USER SESSIONS and logged in users!!!
 const LoginForm = () => {
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object({
-    identifier: Yup.string()
-      .required('Email or Username is required'),
+    identifier: Yup.string().required("Email or Username is required"),
     password: Yup.string()
-      .min(6, 'Password must be at least 6 characters')
-      .required('Password is required'),
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
   });
 
   const handleLogin = (values) => {
-    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const users = JSON.parse(localStorage.getItem("users")) || [];
     const foundUser = users.find(
-      user => user.email === values.identifier || user.username === values.identifier
+      (user) =>
+        user.email === values.identifier || user.username === values.identifier
     );
-  
+
     if (!foundUser) {
-      alert('User not found!');
+      alert("User not found!");
       return;
     }
-  
+
     if (foundUser.password !== values.password) {
-      alert('Incorrect password!');
+      alert("Incorrect password!");
       return;
     }
-  
+
     if (foundUser.isBlocked) {
-      alert('Your account is blocked.');
+      alert("Your account is blocked.");
       return;
     }
-  
-    sessionStorage.setItem('loggedInUser', JSON.stringify(foundUser));
-  
-    alert('Login successful!');
-    navigate('/dashboard');
+
+    localStorage.setItem("loggedInUser", JSON.stringify(foundUser)); // 🔥 FIXED HERE
+
+    alert("Login successful!");
+    navigate("/dashboard");
   };
-  
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
         <Formik
-          initialValues={{ identifier: '', password: '' }}
+          initialValues={{ identifier: "", password: "" }}
           validationSchema={validationSchema}
           onSubmit={handleLogin}
         >
