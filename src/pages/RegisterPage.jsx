@@ -1,76 +1,116 @@
-import React, { useState, useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid"; // Import uuid
 
-const RegistrationForm = () => {
-  const [users, setUsers] = useState([]);
+const RegisterPage = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-    setUsers(storedUsers);
-  }, []);
+  const handleRegister = (e) => {
+    e.preventDefault();
+  
+    if (!username || !email || !password || !confirmPassword) {
+      setError("All fields are required!");
+      return;
+    }
+  
+    if (username.length < 3 || username.length > 15) {
+      setError("Username must be between 3 and 15 characters.");
+      return;
+    }
+  
+    if (password.length < 10) {
+      setError("Password must be at least 10 characters.");
+      return;
+    }
+  
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
 
-  const initialValues = {
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "", 
-  };
-
-  const validationSchema = Yup.object({
-    username: Yup.string().min(3, "Too short").required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string().min(6, "Password must be at least 6 characters").required("Required"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match") 
-      .required("Required"),
-  });
-
-  const handleSubmit = (values, { resetForm }) => {
-    const newUser = { id: Date.now(), ...values };
-    const updatedUsers = [...users, newUser];
-    setUsers(updatedUsers);
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-    resetForm();
-    alert("User registered successfully!");
+    // Create user object 
+    const newUser = {
+      id: uuidv4(),
+      username,
+      email,
+      password, 
+      isBlocked: false,
+      role: "user",
+      createdDate: new Date().toLocaleString()
+    };
+  
+    // Store user in localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+  
+    // Clear form and error
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword(""); // Clear confirm password
+    setError("");
+  
+    alert("Registration successful!");
+    navigate("/login"); // Redirect to login page
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Register</h2>
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-        <Form className="space-y-4">
-          <div>
-            <label className="block font-medium">Username</label>
-            <Field name="username" className="w-full p-2 border rounded" />
-            <ErrorMessage name="username" component="div" className="text-red-500 text-sm" />
-          </div>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form
+        onSubmit={handleRegister}
+        className="bg-white p-6 rounded-lg shadow-lg w-96"
+      >
+        <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
 
-          <div>
-            <label className="block font-medium">Email</label>
-            <Field type="email" name="email" className="w-full p-2 border rounded" />
-            <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
-          </div>
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-          <div>
-            <label className="block font-medium">Password</label>
-            <Field type="password" name="password" className="w-full p-2 border rounded" />
-            <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
-          </div>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full p-2 border rounded mb-3"
+        />
 
-          <div>
-            <label className="block font-medium">Confirm Password</label>
-            <Field type="password" name="confirmPassword" className="w-full p-2 border rounded" />
-            <ErrorMessage name="confirmPassword" component="div" className="text-red-500 text-sm" />
-          </div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full p-2 border rounded mb-3"
+        />
 
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-            Register
-          </button>
-        </Form>
-      </Formik>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-2 border rounded mb-3"
+        />
+
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className="w-full p-2 border rounded mb-3"
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
+        >
+          Register
+        </button>
+      </form>
     </div>
   );
 };
 
-export default RegistrationForm;
+export default RegisterPage;
