@@ -19,10 +19,9 @@ const OrderForm = ({ onClose, initialOrder }) => {
       const res = await fetch("https://fakestoreapi.com/products");
       const data = await res.json();
       setProducts(data);
+      localStorage.setItem("products", JSON.stringify(data)); // Save products to localStorage
     }
   };
-
-  const productOptions = products.map((product) => product.title);
 
   // Initial form values
   const initialValues = initialOrder || {
@@ -55,7 +54,7 @@ const OrderForm = ({ onClose, initialOrder }) => {
       customerName: values.customerName,
       customerEmail: values.customerEmail,
       customerAddress: values.customerAddress,
-      products: values.products,
+      products: values.products, // Contains product ID and quantity
       status: values.status, // Use the status from the form
       date: new Date().toISOString(), // Current date for new orders
     };
@@ -72,13 +71,20 @@ const OrderForm = ({ onClose, initialOrder }) => {
   // Handle adding a product to the list
   const handleAddProduct = (values, setFieldValue) => {
     if (values.selectedProduct && values.productQuantity > 0) {
-      const newProduct = {
-        name: values.selectedProduct,
-        quantity: values.productQuantity,
-      };
-      setFieldValue("products", [...values.products, newProduct]); // Add product to the list
-      setFieldValue("selectedProduct", ""); // Clear selected product
-      setFieldValue("productQuantity", 1); // Reset quantity
+      const selectedProduct = products.find(
+        (product) => product.id === parseInt(values.selectedProduct)
+      );
+
+      if (selectedProduct) {
+        const newProduct = {
+          id: selectedProduct.id, // Store product ID
+          name: selectedProduct.title, // Store product title for display
+          quantity: values.productQuantity,
+        };
+        setFieldValue("products", [...values.products, newProduct]); // Add product to the list
+        setFieldValue("selectedProduct", ""); // Clear selected product
+        setFieldValue("productQuantity", 1); // Reset quantity
+      }
     }
   };
 
@@ -179,9 +185,9 @@ const OrderForm = ({ onClose, initialOrder }) => {
                     } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
                   >
                     <option value="">Select a product</option>
-                    {productOptions.map((product, index) => (
-                      <option key={index} value={product}>
-                        {product}
+                    {products.map((product) => (
+                      <option key={product.id} value={product.id}>
+                        {product.title}
                       </option>
                     ))}
                   </Field>

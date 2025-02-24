@@ -17,6 +17,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
+import { OrderProvider } from "./context/OrderContext";
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -56,45 +57,47 @@ const App = () => {
 
   return (
     <ProductProvider>
-      <div className="flex flex-col h-screen">
-        {user && (
-          <Navbar toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        )}
-        <div className="flex flex-1 lg:flex-row overflow-hidden">
-          {user && <Sidebar isOpen={isSidebarOpen} role={user.role} />}
+      <OrderProvider>
+        <div className="flex flex-col h-screen">
+          {user && (
+            <Navbar toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+          )}
+          <div className="flex flex-1 lg:flex-row overflow-hidden">
+            {user && <Sidebar isOpen={isSidebarOpen} role={user.role} />}
 
-          <div className="flex-1 min-h-screen p-4 mt-10 overflow-auto">
-            <Routes>
-              {!user && (
-                <>
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/register" element={<RegisterPage />} />
-                  <Route path="*" element={<Navigate to="/login" />} />
-                </>
-              )}
+            <div className="flex-1 min-h-screen p-4 mt-10 overflow-auto">
+              <Routes>
+                {!user && (
+                  <>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="*" element={<Navigate to="/login" />} />
+                  </>
+                )}
 
-              {user && (
-                <>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/orders" element={<Orders />} />
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/home" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/contact" element={<Contact />} />
+                {user && (
+                  <>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/orders" element={<Orders />} />
+                    <Route path="/products" element={<Products />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/contact" element={<Contact />} />
 
-                  {user.role === "admin" && (
-                    <Route path="/users" element={<Users />} />
-                  )}
+                    {user.role === "admin" && (
+                      <Route path="/users" element={<Users />} />
+                    )}
 
-                  <Route path="*" element={<Navigate to="/" />} />
-                </>
-              )}
-            </Routes>
+                    <Route path="*" element={<Navigate to="/" />} />
+                  </>
+                )}
+              </Routes>
+            </div>
           </div>
         </div>
-      </div>
+      </OrderProvider>
     </ProductProvider>
   );
 };
