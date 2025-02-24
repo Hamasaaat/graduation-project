@@ -42,33 +42,28 @@ const OrderForm = ({ onClose, initialOrder }) => {
       .email("Invalid email address")
       .required("Customer Email is required"),
     customerAddress: Yup.string().required("Customer Address is required"),
-    selectedProduct: Yup.string().required("Product selection is required"),
-    productQuantity: Yup.number()
-      .min(1, "Quantity must be at least 1")
-      .required("Quantity is required"),
+    products: Yup.array()
+      .min(1, "At least one product is required") // Validate the products array
+      .required("At least one product is required"),
     status: Yup.string().required("Status is required"), // Only required for editing
   });
 
   // Handle form submission
   const handleSubmit = (values, { resetForm }) => {
-    console.log("Form Values:", values); // Debug: Log form values
     const newOrder = {
-      id: initialOrder ? initialOrder.id : Date.now(), // Use existing ID for editing
+      id: initialOrder ? initialOrder.id : Math.floor(Math.random() * 100000), // Random ID for new orders
       customerName: values.customerName,
       customerEmail: values.customerEmail,
       customerAddress: values.customerAddress,
       products: values.products,
-      status: initialOrder ? values.status : "Pending", // Default to "Pending" for new orders
+      status: values.status, // Use the status from the form
+      date: new Date().toISOString(), // Current date for new orders
     };
 
-    console.log("New Order:", newOrder); // Debug: Log the new order
-
     if (initialOrder) {
-      console.log("Editing Order:", newOrder); // Debug: Log editing order
-      editOrder(newOrder);
+      editOrder(newOrder); // Update existing order
     } else {
-      console.log("Adding Order:", newOrder); // Debug: Log adding order
-      addOrder(newOrder);
+      addOrder(newOrder); // Add new order
     }
     resetForm();
     onClose();
@@ -101,205 +96,203 @@ const OrderForm = ({ onClose, initialOrder }) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, setFieldValue, errors, touched }) => {
-        console.log("Form Errors:", errors); // Debug: Log validation errors
-        return (
-          <Form className="space-y-4">
-            {/* Customer Name */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Customer Name *
-              </label>
-              <Field
-                type="text"
-                name="customerName"
-                className={`mt-1 block w-full p-2 border ${
-                  errors.customerName && touched.customerName
-                    ? "border-red-500"
-                    : "border-gray-300"
-                } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
-              />
-              <ErrorMessage
-                name="customerName"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Customer Email */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Customer Email *
-              </label>
-              <Field
-                type="email"
-                name="customerEmail"
-                className={`mt-1 block w-full p-2 border ${
-                  errors.customerEmail && touched.customerEmail
-                    ? "border-red-500"
-                    : "border-gray-300"
-                } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
-              />
-              <ErrorMessage
-                name="customerEmail"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Customer Address */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Customer Address *
-              </label>
-              <Field
-                type="text"
-                name="customerAddress"
-                className={`mt-1 block w-full p-2 border ${
-                  errors.customerAddress && touched.customerAddress
-                    ? "border-red-500"
-                    : "border-gray-300"
-                } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
-              />
-              <ErrorMessage
-                name="customerAddress"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Product Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Product *
-              </label>
-              <Field
-                as="select"
-                name="selectedProduct"
-                className={`mt-1 block w-full p-2 border ${
-                  errors.selectedProduct && touched.selectedProduct
-                    ? "border-red-500"
-                    : "border-gray-300"
-                } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
-              >
-                <option value="">Select a product</option>
-                {productOptions.map((product, index) => (
-                  <option key={index} value={product}>
-                    {product}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="selectedProduct"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Product Quantity */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Quantity *
-              </label>
-              <Field
-                type="number"
-                name="productQuantity"
-                min="1"
-                className={`mt-1 block w-full p-2 border ${
-                  errors.productQuantity && touched.productQuantity
-                    ? "border-red-500"
-                    : "border-gray-300"
-                } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
-              />
-              <ErrorMessage
-                name="productQuantity"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Status Selection (Only for Editing) */}
-            {initialOrder && (
+      {({ values, setFieldValue, errors, touched }) => (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-lg flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full shadow-lg max-h-[90vh] overflow-y-auto">
+            <Form className="space-y-4">
+              {/* Customer Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  Status *
+                  Customer Name *
                 </label>
                 <Field
-                  as="select"
-                  name="status"
+                  type="text"
+                  name="customerName"
                   className={`mt-1 block w-full p-2 border ${
-                    errors.status && touched.status
+                    errors.customerName && touched.customerName
                       ? "border-red-500"
                       : "border-gray-300"
                   } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
-                >
-                  <option value="Pending">Pending</option>
-                  <option value="Processing">Processing</option>
-                  <option value="Shipped">Shipped</option>
-                  <option value="Delivered">Delivered</option>
-                </Field>
+                />
                 <ErrorMessage
-                  name="status"
+                  name="customerName"
                   component="div"
                   className="text-red-500 text-sm mt-1"
                 />
               </div>
-            )}
 
-            {/* Add Product Button */}
-            <button
-              type="button"
-              onClick={() => handleAddProduct(values, setFieldValue)}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-            >
-              Add Product
-            </button>
+              {/* Customer Email */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Customer Email *
+                </label>
+                <Field
+                  type="email"
+                  name="customerEmail"
+                  className={`mt-1 block w-full p-2 border ${
+                    errors.customerEmail && touched.customerEmail
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
+                />
+                <ErrorMessage
+                  name="customerEmail"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
 
-            {/* Selected Products List */}
-            <div>
-              <h3 className="font-medium text-gray-700">Selected Products:</h3>
-              <ul className="list-disc pl-5 mt-2">
-                {values.products.map((product, index) => (
-                  <li
-                    key={index}
-                    className="text-gray-600 flex justify-between items-center"
+              {/* Customer Address */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Customer Address *
+                </label>
+                <Field
+                  type="text"
+                  name="customerAddress"
+                  className={`mt-1 block w-full p-2 border ${
+                    errors.customerAddress && touched.customerAddress
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
+                />
+                <ErrorMessage
+                  name="customerAddress"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
+
+              {/* Product Selection and Quantity */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Product
+                  </label>
+                  <Field
+                    as="select"
+                    name="selectedProduct"
+                    className={`mt-1 block w-full p-2 border ${
+                      errors.selectedProduct && touched.selectedProduct
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
                   >
-                    <span>
-                      {product.name} (Quantity: {product.quantity})
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleDeleteProduct(index, values, setFieldValue)
-                      }
-                      className="text-red-500 hover:text-red-700 font-bold"
-                    >
-                      ×
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    <option value="">Select a product</option>
+                    {productOptions.map((product, index) => (
+                      <option key={index} value={product}>
+                        {product}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Quantity
+                  </label>
+                  <Field
+                    type="number"
+                    name="productQuantity"
+                    min="1"
+                    className={`mt-1 block w-full p-2 border ${
+                      errors.productQuantity && touched.productQuantity
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
+                  />
+                </div>
+              </div>
 
-            {/* Form Actions */}
-            <div className="flex justify-end space-x-4">
+              {/* Add Product Button */}
               <button
                 type="button"
-                onClick={onClose}
-                className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors shadow-sm"
+                onClick={() => handleAddProduct(values, setFieldValue)}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
               >
-                Cancel
+                Add Product
               </button>
-              <button
-                type="submit"
-                className="bg-blue-800 text-white px-6 py-2 rounded-lg hover:bg-blue-900 transition-colors shadow-sm"
-              >
-                {initialOrder ? "Update Order" : "Add Order"}
-              </button>
-            </div>
-          </Form>
-        );
-      }}
+
+              {/* Selected Products List */}
+              <div className="max-h-48 overflow-y-auto">
+                <h3 className="font-medium text-gray-700">
+                  Selected Products:
+                </h3>
+                <ul className="list-disc pl-5 mt-2">
+                  {values.products.map((product, index) => (
+                    <li
+                      key={index}
+                      className="text-gray-600 flex justify-between items-center"
+                    >
+                      <span>
+                        {product.name} (Quantity: {product.quantity})
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleDeleteProduct(index, values, setFieldValue)
+                        }
+                        className="text-red-500 hover:text-red-700 font-bold"
+                      >
+                        ×
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+                <ErrorMessage
+                  name="products"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
+
+              {/* Status Selection (Only for Editing) */}
+              {initialOrder && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Status *
+                  </label>
+                  <Field
+                    as="select"
+                    name="status"
+                    className={`mt-1 block w-full p-2 border ${
+                      errors.status && touched.status
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                  </Field>
+                  <ErrorMessage
+                    name="status"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
+              )}
+
+              {/* Form Actions */}
+              <div className="flex justify-end space-x-4">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors shadow-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-800 text-white px-6 py-2 rounded-lg hover:bg-blue-900 transition-colors shadow-sm"
+                >
+                  {initialOrder ? "Update Order" : "Add Order"}
+                </button>
+              </div>
+            </Form>
+          </div>
+        </div>
+      )}
     </Formik>
   );
 };
