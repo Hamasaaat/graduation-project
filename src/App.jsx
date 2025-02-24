@@ -18,11 +18,17 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import { OrderProvider } from "./context/OrderContext";
+import { useProducts } from "./context/ProductContext";
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { fetchProducts } = useProducts();
   const { user, setUser } = useUser();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchProducts();
+  },[]);
 
   useEffect(() => {
     const initializeAdmin = () => {

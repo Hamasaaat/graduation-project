@@ -8,11 +8,9 @@ import { useProducts } from "../context/ProductContext";
 
 const DashboardPage = () => {
   const { fetchOrders } = useOrders();
-  const { fetchProducts } = useProducts();
 
   useEffect(() => {
     fetchOrders();
-    fetchProducts();
   }, []);
 
   if (localStorage.getItem("loggedInUser") == null) {
