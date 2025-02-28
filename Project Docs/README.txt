@@ -9,3 +9,8 @@ npm install
 5. to launch the app, run the following:
 npm run dev
 
+6. Login as either:
+ username: admin
+ password: admin@123
+or
+register and login with your credentials 
